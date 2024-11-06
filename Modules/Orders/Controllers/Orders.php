@@ -34,11 +34,11 @@ class Orders extends ResourceController
                         $data = $data->groupEnd();
                         break;
                     case 'fromDate':
-                        $from_date = DateTime::createFromFormat('d-m-Y H:i:s', $filterValue . ' 00:00:00');
+                        $from_date = DateTime::createFromFormat('m/d/Y H:i:s', $filterValue . ' 00:00:00');
                         $data = $data->where('date >=', $from_date->format('Y-m-d H:i:s'));
                         break;
                     case 'toDate':
-                        $to_date = DateTime::createFromFormat('d-m-Y H:i:s', $filterValue . ' 23:59:59');
+                        $to_date = DateTime::createFromFormat('m/d/Y H:i:s', $filterValue . ' 23:59:59');
                         $data = $data->where('date <=', $to_date->format('Y-m-d H:i:s'));
                         break;
                     case 'sortField':
@@ -56,7 +56,8 @@ class Orders extends ResourceController
     }
 
 
-    public function show($id = null){
+    public function show($id = null)
+    {
         $order = (new Order())->where('id', $id)->first();
         if (!is_null($order)) {
             $order['products'] = (new ProductOrder())
@@ -67,5 +68,22 @@ class Orders extends ResourceController
             return $this->respond(['data' => $order, 'message' => null], 200);
         }
         return $this->respond(['data' => [], 'message' => 'Not Found'], 404);
+    }
+
+    public function delete($id = null)
+    {
+        $order = (new Order())->where('id', $id)->first();
+        if (is_null($order)) {
+            return $this->respond(['data' => [], 'message' => 'Not Found'], 404);
+        }
+        $result = (new ProductOrder())->where('order_id', $id)->delete();
+        if (!$result) {
+            return $this->respond(['data' => [], 'message' => "Errore durante l'eliminazione"], 400);
+        }
+        $result = (new Order())->where('id', $id)->delete();
+        if (!$result) {
+            return $this->respond(['data' => [], 'message' => "Errore durante l'eliminazione"], 400);
+        }
+        return $this->respond(['data' => [], 'message' => "Eliminazione avvenuta con successo"], 200);
     }
 }
