@@ -19,8 +19,7 @@ class CreateOrdersTable extends Migration
                 'constraint' => '255'
             ],
             'description' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255'
+                'type' => 'TEXT',
             ],
             'date' => [
                 'type' => 'datetime',
