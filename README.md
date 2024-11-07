@@ -1,19 +1,35 @@
-# CodeIgniter 4 Application Starter
+# Utilizzo delle API di CodeIgniter 4
 
-## Installation & updates
+Questo progetto può essere eseguito su Docker.
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## Prerequisiti
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+1. ### Docker e Docker Compose installati sulla tua macchina.
+2. ### Questo progetto CodeIgniter 4 sulla tua macchina.
 
-## Setup
+## Costruire e Avviare i Container
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### Dalla root del progetto, costruisci e avvia i container Docker con il comando:
 
+docker-compose up --build
 
-php spark migrate -all
-php spark db:seed "Modules\Products\Database\Seeds\SeederProducts"
+### Questo comando avvia due container:
+
+Web container: L'applicazione CodeIgniter 4.
+
+Database container: Un database MySQL configurato per l'applicazione.
+
+### Una volta avviato il tutto, l'applicazione sarà accessibile all'indirizzo http://localhost:8080.
+
+## Creazione e Migrazione del Database
+
+### Una volta che i container sono in esecuzione, dovrai eseguire manualmente i comandi per creare il database e le tabelle tramite le migrazioni e i seeder.
+
+1. Accedi al Container dell'Applicazione
+2. Esegui le Migrazioni -
+   Una volta all'interno del container, esegui le migrazioni per creare le tabelle nel database:
+
+    1. php spark migrate --all
+3. Esegui il Seeding - Questo comando popolerà il database con i dati di esempio dei prodotti.
+
+     2. php spark db:seed "Modules\Products\Database\Seeds\SeederProducts"
