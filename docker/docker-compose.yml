@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # PHP service
+  php:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: codeigniter-container
+    image: codeigniter-image
+    ports:
+      - "8080:80"
+    volumes:
+      - ../app:/var/www/html/app
+      - ../Modules:/var/www/html/Modules
+      - ../public:/var/www/html/public
+      - ../writable:/var/www/html/writable
+      - ../tests:/var/www/html/tests
+    depends_on:
+      - mysql
+    networks:
+        - codeigniter-network
+
+  # MySQL service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-technical-test-iliad
+    environment:
+      MYSQL_ROOT_PASSWORD: 2525FranceItalia!
+      MYSQL_DATABASE: technical-test-iliad
+      MYSQL_USER: ci_user
+      MYSQL_PASSWORD: 89Telefonia73!
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - codeigniter-network
+
+volumes:
+  mysql_data:
+
+networks:
+  codeigniter-network:
+    driver: bridge
