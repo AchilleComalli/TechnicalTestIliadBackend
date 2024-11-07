@@ -4,22 +4,22 @@ Questo progetto può essere eseguito su Docker.
 
 ## Prerequisiti
 
-1. ### Docker e Docker Compose installati sulla tua macchina.
-2. ### Questo progetto CodeIgniter 4 sulla tua macchina.
+1.  Docker e Docker Compose installati sulla tua macchina.
+2. Questo progetto CodeIgniter 4 sulla tua macchina.
 
 ## Costruire e Avviare i Container
 
-### Dalla root del progetto, costruisci e avvia i container Docker con il comando:
+ Dalla root del progetto, costruisci e avvia i container Docker con il comando:
 
+```bash
 docker-compose up --build
+```
 
 ### Questo comando avvia due container:
 
 Web container: L'applicazione CodeIgniter 4.
 
 Database container: Un database MySQL configurato per l'applicazione.
-
-### Una volta avviato il tutto, l'applicazione sarà accessibile all'indirizzo http://localhost:8080.
 
 ## Creazione e Migrazione del Database
 
@@ -29,7 +29,13 @@ Database container: Un database MySQL configurato per l'applicazione.
 2. Esegui le Migrazioni -
    Una volta all'interno del container, esegui le migrazioni per creare le tabelle nel database:
 
-    1. php spark migrate --all
+    ```bash
+    php spark migrate --all
+   ```
 3. Esegui il Seeding - Questo comando popolerà il database con i dati di esempio dei prodotti.
 
-     2. php spark db:seed "Modules\Products\Database\Seeds\SeederProducts"
+    ```bash
+   php spark db:seed "Modules\Products\Database\Seeds\SeederProducts"
+   ```
+
+Una volta avviato il tutto, l'applicazione sarà accessibile all'indirizzo http://localhost:8080.
