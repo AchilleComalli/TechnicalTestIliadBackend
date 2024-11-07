@@ -81,7 +81,7 @@ class Orders extends ResourceController
         $order = [
             'name' => $data->name,
             'description' => $data->description,
-            'date' => DateTime::createFromFormat('m/d/Y H:i:s', $data->date . ' 00:00:00')->format('Y-m-d H:i:s'),
+            'date' => $data->date,
         ];
         $orderId = $this->model->insert($order);
 
@@ -131,7 +131,7 @@ class Orders extends ResourceController
         $order = [
             'name' => $data->name,
             'description' => $data->description,
-            'date' => DateTime::createFromFormat('m/d/Y H:i:s', $data->date . ' 00:00:00')->format('Y-m-d H:i:s'),
+            'date' => $data->date,
         ];
         $result = (new Order())->set($order)->where('id', $id)->update();
 
